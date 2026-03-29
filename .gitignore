@@ -1,0 +1,17 @@
+.env
+venv/
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+*.pdf
+*.jpg
+*.png
+*.jpeg
+*.webp
+.DS_Store
+*.egg-info/
+uploads/
+/tmp/
+/dist/
+/build/
