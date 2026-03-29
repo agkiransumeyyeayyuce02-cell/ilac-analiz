@@ -104,45 +104,43 @@ st.markdown("""
 main_col1, main_col2 = st.columns([1, 1])
 
 with main_col1:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.subheader("📸 Görsel Girişi")
-    tab_cam, tab_file = st.tabs(["📷 Kamera", "📁 Dosya Yükle"])
-    
-    with tab_cam:
-        camera_photo = st.camera_input("İlaç Kutusunu Merkeze Alın")
-    
-    with tab_file:
-        uploaded_file = st.file_uploader(
-            "Net bir fotoğraf seçin",
-            type=["jpg", "jpeg", "png", "webp"],
-            help="İlacın üzerindeki yazıların okunabilir olduğundan emin olun."
-        )
-    st.markdown('</div>', unsafe_allow_html=True)
+    with st.container(border=True):
+        st.subheader("📸 Görsel Girişi")
+        tab_cam, tab_file = st.tabs(["📷 Kamera", "📁 Dosya Yükle"])
+        
+        with tab_cam:
+            camera_photo = st.camera_input("İlaç Kutusunu Merkeze Alın")
+        
+        with tab_file:
+            uploaded_file = st.file_uploader(
+                "Net bir fotoğraf seçin",
+                type=["jpg", "jpeg", "png", "webp"],
+                help="İlacın üzerindeki yazıların okunabilir olduğundan emin olun."
+            )
 
 with main_col2:
-    st.markdown('<div class="card" style="height: 100%;">', unsafe_allow_html=True)
-    st.subheader("✍️ Manuel Giriş")
-    manual_input = st.text_input(
-        "İlaç veya Etken Madde Adı", 
-        value=st.session_state.get('manual_drug', ""),
-        placeholder="Örn: Parasetamol, Ibuprofen..."
-    )
-    
-    st.markdown("""
-    <br>
-    <p style='font-size:0.9rem; color:#666;'>
-    <strong>İpucu:</strong> Görüntü analizi hem yazıları okur hem de kutunun tasarımından ilacı tanır. 
-    Manuel girişte ise doğrudan web üzerindeki en güncel prospektüs verileri taranır.
-    </p>
-    """, unsafe_allow_html=True)
-    
-    analyze_btn = st.button(
-        "🔍 ANALİZİ BAŞLAT",
-        type="primary",
-        use_container_width=True,
-        disabled=(camera_photo is None and uploaded_file is None and not manual_input)
-    )
-    st.markdown('</div>', unsafe_allow_html=True)
+    with st.container(border=True):
+        st.subheader("✍️ Manuel Giriş")
+        manual_input = st.text_input(
+            "İlaç veya Etken Madde Adı", 
+            value=st.session_state.get('manual_drug', ""),
+            placeholder="Örn: Parasetamol, Ibuprofen..."
+        )
+        
+        st.markdown("""
+        <br>
+        <p style='font-size:0.9rem; color:#666;'>
+        <strong>İpucu:</strong> Görüntü analizi hem yazıları okur hem de kutunun tasarımından ilacı tanır. 
+        Manuel girişte ise doğrudan web üzerindeki en güncel prospektüs verileri taranır.
+        </p>
+        """, unsafe_allow_html=True)
+        
+        analyze_btn = st.button(
+            "🔍 ANALİZİ BAŞLAT",
+            type="primary",
+            use_container_width=True,
+            disabled=(camera_photo is None and uploaded_file is None and not manual_input)
+        )
 
 # ── Analiz Akışı ────────────────────────────────────────────────────────────
 if analyze_btn:
