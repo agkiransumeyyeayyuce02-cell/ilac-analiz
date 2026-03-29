@@ -200,10 +200,9 @@ if analyze_btn:
         with m_col2: st.metric("Etken Madde", gemini_data.get("etken_madde", "-"))
         with m_col3: st.metric("Form", gemini_data.get("form", "-"))
 
-    # Ana Rapor Alanı
-    st.markdown(f'<div class="card">', unsafe_allow_html=True)
-    st.markdown(analysis)
-    st.markdown('</div>', unsafe_allow_html=True)
+    # Ana Rapor Alanı (Hatayı önlemek için HTML div parçalamaktan kaçınıyoruz)
+    with st.container(border=True):
+        st.markdown(analysis)
 
     # İşlem butonları
     st.divider()
@@ -219,7 +218,8 @@ if analyze_btn:
         )
     
     with res_col2:
-        st.button("🔄 YENİ ANALİZ", on_click=lambda: st.rerun(), use_container_width=True)
+        # Streamlit'te butonlar otomatik rerun tetikler, on_click hatayı tetikleyebiliyordu.
+        st.button("🔄 YENİ ANALİZ", use_container_width=True)
 
 # ── Footer ────────────────────────────────────────────────────────────────
 st.divider()
